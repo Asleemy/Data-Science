@@ -1,0 +1,25 @@
+---
+title: "Crude Oil Price Prediction and Forecasting"
+author: "Tesloid"
+date: "1/18/2022"
+output: html_document
+---
+
+```{r}
+data <- read.csv("~/DATA SCIENCE/R franc/crudeoilprices.csv", header = TRUE)
+tsData<- ts(data[2:35:2],start = c(2011,1),frequency = 12)
+plot(tsData)
+timeSeriescomponents <- decompose(tsData)
+plot(timeSeriescomponents)
+
+urkpssTest(tsData, type = c("tau"), lags = c("short"), use.lag = NULL, doplot = TRUE)
+tsstationary<- diff(tsData, difference = 1)
+plot(tsstationary)
+
+timeseriesseasonaladjusted <- tsData-timeseriescomponents$seasonal
+plot(tsstationary)
+par(mfrow=c(2,1))
+
+
+```
+
